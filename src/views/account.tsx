@@ -28,13 +28,14 @@ function Account(): JSX.Element {
 
   return (
     <Container>
-      <Header>My Account</Header>
       <Button as={Link} to="/SignUp">
         Sign Up
       </Button>
       <Button as={Link} to="/Login">
         Login
       </Button>
+      <Header>My Account</Header>
+
       <Form>
         <Form.Input label="Email" value={email} />
         <Form.Input label="Display Name" value={displayName} onChange={handleDisplayName} />

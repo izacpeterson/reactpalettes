@@ -1,0 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.paletteList {
+  display: flex;
+  flex-wrap: wrap;
+}
+.colorList {
+  display: flex;
+}
+.paletteSmall {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.color {
+  padding: 10px;
+}
