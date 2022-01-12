@@ -3,7 +3,7 @@ import { Editor } from "./editor";
 import { Link, useNavigate } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
-import { doc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore, onSnapshot } from "firebase/firestore";
 
 import Palette from "../myTypes";
 
@@ -16,11 +16,19 @@ const db = getFirestore();
 
 function Home(props) {
   const [palettes, setPalettes] = useState([]);
+
+  async function getData() {
+    const docRef = doc(db, "users", props.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log(docSnap.data().palettes);
+      setPalettes(docSnap.data().palettes);
+    }
+  }
+
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "users", props.uid), (doc) => {
-      console.log("Current data: ", doc.data().palettes);
-      setPalettes(doc.data().palettes);
-    });
+    getData();
   }, []);
 
   return (
@@ -30,7 +38,7 @@ function Home(props) {
         <Icon name="add" />
         New Palette
       </Button>
-      <PaletteList palettes={palettes}></PaletteList>
+      <PaletteList palettes={palettes} private={true}></PaletteList>
     </Container>
   );
 }

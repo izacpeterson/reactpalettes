@@ -2,18 +2,48 @@
   padding: 0;
   margin: 0;
 }
+/* html,
+body {
+  width: 100vw;
+} */
 .paletteList {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 .colorList {
   display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 5px rgb(173, 173, 173);
 }
 .paletteSmall {
   display: flex;
   flex-direction: column;
   margin: 10px;
+  width: 100%;
+}
+.palettePublic {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 40%;
 }
 .color {
-  padding: 10px;
+  height: 100px;
+  width: 100%;
+}
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+.userInfo h2,
+.userInfo h3 {
+  padding: 0;
+  margin: 0;
+}
+.userInfo h3 {
+  font-weight: 100;
+  font-style: italic;
+  text-indent: 20px;
 }

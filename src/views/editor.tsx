@@ -77,6 +77,9 @@ export function Editor(props) {
     const newPalette: Palette = {
       name: name,
       colors: [color1, color2, color3, color4, color5],
+      public: false,
+      uid: props.uid,
+      displayname: props.displayName,
     };
     console.log(newPalette, props.uid);
 

@@ -1,24 +1,24 @@
 import React, { ChangeEvent, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { Container, Form, Header, Menu, MenuItem } from "semantic-ui-react";
+import { Container, Form, Header, Menu, MenuItem, Segment, Grid, Button, Divider } from "semantic-ui-react";
 
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const app = initializeApp(firebaseConfig);
 
-function SignUp() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <Container>
-      <Header>Sign Up</Header>
+      <Header>Login</Header>
       <Form onSubmit={submit}>
-        <Form.Input label="Email" placeholder="Email" onChange={handleEmail} value={email}></Form.Input>
-        <Form.Input label="Password" placeholder="Password" onChange={handlePassword} value={password}></Form.Input>
-        <Form.Button>Submit</Form.Button>
+        <Form.Input type="email" label="Email" placeholder="Email" onChange={handleEmail} value={email}></Form.Input>
+        <Form.Input type="password" label="Password" placeholder="Password" onChange={handlePassword} value={password}></Form.Input>
+        <Form.Button color="green">Login</Form.Button>
       </Form>
     </Container>
   );
@@ -34,11 +34,11 @@ function SignUp() {
     e.preventDefault();
 
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        window.location.href = "/account";
+        window.location.href = "/";
       })
       .catch((error) => {
         alert(error.message);
@@ -46,4 +46,4 @@ function SignUp() {
   }
 }
 
-export default SignUp;
+export default Login;

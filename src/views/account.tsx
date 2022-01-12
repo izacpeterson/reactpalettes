@@ -18,7 +18,6 @@ function Account(): JSX.Element {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedin(true);
-        console.log(user);
 
         setEmail(user.email || "");
         setDisplayName(user.displayName || "");
@@ -28,12 +27,6 @@ function Account(): JSX.Element {
 
   return (
     <Container>
-      <Button as={Link} to="/SignUp">
-        Sign Up
-      </Button>
-      <Button as={Link} to="/Login">
-        Login
-      </Button>
       <Header>My Account</Header>
 
       <Form>

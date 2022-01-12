@@ -1,9 +1,5 @@
 import "./color.css";
 
 export function Color(props) {
-  return (
-    <div className="color" style={{ backgroundColor: props.hex }}>
-      {props.hex}
-    </div>
-  );
+  return <div className="color" style={{ backgroundColor: props.hex }}></div>;
 }

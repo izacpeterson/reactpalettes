@@ -5,7 +5,7 @@ import { Container, Header, Menu, MenuItem } from "semantic-ui-react";
 function Layout() {
   return (
     <>
-      <Menu>
+      <Menu stackable>
         <MenuItem>
           <Header as="h1">Color Palette</Header>
         </MenuItem>
@@ -17,6 +17,9 @@ function Layout() {
         </MenuItem>
         <MenuItem as={Link} to="/Account">
           My Account
+        </MenuItem>
+        <MenuItem as={Link} to="/Access">
+          Sign In
         </MenuItem>
       </Menu>
 
