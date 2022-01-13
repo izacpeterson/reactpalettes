@@ -1,0 +1,32 @@
+.colorField {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 100%;
+}
+.colorField * {
+  width: 100%;
+}
+.colorFieldList {
+  display: flex;
+}
+input[type="color"] {
+  height: 400px;
+  opacity: 0;
+}
+@media only screen and (max-width: 600px) {
+  .colorField {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 50%;
+  }
+  .colorFieldList {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  input[type="color"] {
+    height: 200px;
+    opacity: 0;
+  }
+}

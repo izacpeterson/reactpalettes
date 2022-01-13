@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import { Context } from "../contexts/global.context";
+
 import { Button, Container, Header, Icon, Modal } from "semantic-ui-react";
-import { Editor } from "./editor";
+import { Editor } from "./editor/editor";
 import { Link, useNavigate } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
@@ -17,18 +20,12 @@ const db = getFirestore();
 function Home(props) {
   const [palettes, setPalettes] = useState([]);
 
-  async function getData() {
-    const docRef = doc(db, "users", props.uid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      console.log(docSnap.data().palettes);
-      setPalettes(docSnap.data().palettes);
-    }
-  }
+  const user = useContext(Context);
 
   useEffect(() => {
-    getData();
+    const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
+      setPalettes(doc.data().palettes);
+    });
   }, []);
 
   return (

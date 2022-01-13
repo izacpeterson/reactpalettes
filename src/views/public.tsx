@@ -13,7 +13,6 @@ export function Public() {
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "public", "palettes"), (doc) => {
-      console.log(doc.data());
       setPalettes(doc.data().palettes);
     });
   }, []);

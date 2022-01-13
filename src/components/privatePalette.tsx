@@ -4,7 +4,7 @@ import Palette from "../myTypes";
 import { Color } from "./color";
 
 import { initializeApp } from "firebase/app";
-import { doc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore, onSnapshot, getDoc } from "firebase/firestore";
 
 import firebaseConfig from "../firebase";
 const app = initializeApp(firebaseConfig);
@@ -27,15 +27,26 @@ export function PrivatePalette(props) {
     </div>
   );
 
+  async function getPalettes(callback) {
+    const docRef = doc(db, "users", pal.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      callback(docSnap.data());
+    } else {
+      console.log("NO DATA");
+    }
+  }
+
   function handlePublicChange() {
+    getPalettes((data) => {
+      const docRef = doc(db, "users", pal.uid);
+      data.palettes[props.index].public = !data.palettes[props.index].public;
+      updateDoc(docRef, data);
+    });
+
     setIsPublic(!isPublic);
 
-    const docRef = doc(db, "users", pal.uid);
-    updateDoc(docRef, { palettes: arrayRemove(pal) });
-
     pal.public = !isPublic;
-
-    updateDoc(docRef, { palettes: arrayUnion(pal) });
 
     if (pal.public) {
       const pubDocRef = doc(db, "public", "palettes");
