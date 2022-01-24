@@ -47,3 +47,16 @@ body {
   font-style: italic;
   text-indent: 20px;
 }
+.paletteInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paletteInfo span {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.paletteTitle {
+  flex: 1;
+}

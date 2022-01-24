@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox, Container, Header } from "semantic-ui-react";
+import { Button, Checkbox, Container, Grid, Header } from "semantic-ui-react";
 import Palette from "../myTypes";
 import { Color } from "./color";
 
@@ -19,9 +19,16 @@ export function PrivatePalette(props) {
 
   return (
     <div className="paletteSmall">
-      <div>
-        <h2>{pal.name}</h2>
-        <Checkbox checked={isPublic} onClick={handlePublicChange} toggle /> Public
+      <div className="paletteInfo">
+        <span className="paletteTitle">
+          <h2>{pal.name}</h2>
+        </span>
+        <span>
+          <Checkbox checked={isPublic} onClick={handlePublicChange} toggle /> Public
+        </span>
+        <span>
+          <Button onClick={deletePalette}>Delete</Button>
+        </span>
       </div>
       <ul className="colorList">{colors}</ul>
     </div>
@@ -56,6 +63,21 @@ export function PrivatePalette(props) {
       pal.public = true;
       const pubDocRef = doc(db, "public", "palettes");
       updateDoc(pubDocRef, { palettes: arrayRemove(pal) });
+    }
+  }
+
+  function deletePalette() {
+    const docRef = doc(db, "users", pal.uid);
+
+    if (isPublic) {
+      updateDoc(docRef, {
+        palettes: arrayRemove(pal),
+      });
+      handlePublicChange();
+    } else {
+      updateDoc(docRef, {
+        palettes: arrayRemove(pal),
+      });
     }
   }
 }

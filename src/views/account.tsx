@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged, updateProfile, signOut } from "firebase/au
 import firebaseConfig from "../firebase";
 const app = initializeApp(firebaseConfig);
 
-function Account(): JSX.Element {
+function Account() {
   const [loggedin, setLoggedin] = useState(false);
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -72,6 +72,7 @@ function Account(): JSX.Element {
     }).then(() => {
       console.log("updated");
       setModalOpen(false);
+      window.location.reload();
     });
   }
   function signOutUser() {

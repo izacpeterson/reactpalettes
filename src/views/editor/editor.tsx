@@ -6,6 +6,8 @@ import { Container, Header, Form, Input, Button, Label } from "semantic-ui-react
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore } from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
+
 import Palette from "../../myTypes";
 
 import firebaseConfig from "../../firebase";
@@ -19,6 +21,8 @@ export function Editor(props) {
   const [color4, setColor4] = useState("#000000");
   const [color5, setColor5] = useState("#000000");
   const [name, setName] = useState("");
+
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -142,6 +146,8 @@ export function Editor(props) {
     console.log(newPalette, props.uid);
 
     const docRef = doc(db, "users", props.uid);
-    setDoc(docRef, { palettes: arrayUnion(newPalette) }, { merge: true });
+    setDoc(docRef, { palettes: arrayUnion(newPalette) }, { merge: true }).then(() => {
+      navigate("/");
+    });
   }
 }
