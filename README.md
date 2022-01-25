@@ -2,4 +2,4 @@
 
 Built with React
 
-https://color-palette-4676b.web.app/
+https://color.izacpeterson.com
