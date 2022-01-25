@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Context } from "./contexts/global.context";
 
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useParams } from "react-router-dom";
 import { Button, Container } from "semantic-ui-react";
 import Layout from "./views/layout";
 import Account from "./views/account";

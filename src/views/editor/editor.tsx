@@ -15,11 +15,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 export function Editor(props) {
-  const [color1, setColor1] = useState("#000000");
-  const [color2, setColor2] = useState("#000000");
-  const [color3, setColor3] = useState("#000000");
-  const [color4, setColor4] = useState("#000000");
-  const [color5, setColor5] = useState("#000000");
+  const [color1, setColor1] = useState(randomColor());
+  const [color2, setColor2] = useState(randomColor());
+  const [color3, setColor3] = useState(randomColor());
+  const [color4, setColor4] = useState(randomColor());
+  const [color5, setColor5] = useState(randomColor());
   const [name, setName] = useState("");
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export function Editor(props) {
   return (
     <Container>
       <Header>New Palette</Header>
-      <Form onSubmit={save}>
+      <Form>
         <Form.Field>
           <Label>Name</Label>
           <Input
@@ -56,6 +56,7 @@ export function Editor(props) {
                 setColor1(e.target.value);
               }}
             />
+            <Button onClick={() => setColor1(randomColor())}>Random</Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 2</Label>
@@ -74,6 +75,7 @@ export function Editor(props) {
                 setColor2(e.target.value);
               }}
             />
+            <Button onClick={() => setColor2(randomColor())}>Random</Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 3</Label>
@@ -92,6 +94,7 @@ export function Editor(props) {
                 setColor3(e.target.value);
               }}
             />
+            <Button onClick={() => setColor3(randomColor())}>Random</Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 4</Label>
@@ -110,6 +113,7 @@ export function Editor(props) {
                 setColor4(e.target.value);
               }}
             />
+            <Button onClick={() => setColor4(randomColor())}>Random</Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 5</Label>
@@ -128,10 +132,13 @@ export function Editor(props) {
                 setColor5(e.target.value);
               }}
             />
+            <Button onClick={() => setColor5(randomColor())}>Random</Button>
           </Form.Field>
         </div>
 
-        <Button color="green">Save</Button>
+        <Button color="green" onClick={save}>
+          Save
+        </Button>
       </Form>
     </Container>
   );
@@ -149,5 +156,11 @@ export function Editor(props) {
     setDoc(docRef, { palettes: arrayUnion(newPalette) }, { merge: true }).then(() => {
       navigate("/");
     });
+  }
+  function randomColor() {
+    let r = Math.round(Math.random() * 255);
+    let g = Math.round(Math.random() * 255);
+    let b = Math.round(Math.random() * 255);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   }
 }

@@ -32,6 +32,20 @@ body {
 .color {
   height: 100px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.color:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.color:active::after {
+  content: "Copied!";
+}
+.color:hover::after {
+  /* content: "copy"; */
 }
 .userInfo {
   display: flex;

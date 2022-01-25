@@ -30,7 +30,7 @@ function Account() {
       <Header>My Account</Header>
 
       <Form>
-        <Form.Input label="Email" value={email} />
+        {/* <Form.Input label="Email" value={email} /> */}
         <Form.Input label="Display Name" value={displayName} onChange={handleDisplayName} />
         {/* <Form.Button type="submit">Save Changes</Form.Button> */}
         <Modal
