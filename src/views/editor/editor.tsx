@@ -1,7 +1,7 @@
 import "./editor.css";
 
-import { useState } from "react";
-import { Container, Header, Form, Input, Button, Label } from "semantic-ui-react";
+import { useEffect, useState } from "react";
+import { Container, Header, Form, Input, Button, Label, Icon } from "semantic-ui-react";
 
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, updateDoc, arrayUnion, arrayRemove, getFirestore } from "firebase/firestore";
@@ -24,6 +24,10 @@ export function Editor(props) {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    titleGen();
+  }, []);
+
   return (
     <Container>
       <Header>New Palette</Header>
@@ -37,7 +41,6 @@ export function Editor(props) {
             }}
           ></Input>
         </Form.Field>
-
         <div className="colorFieldList">
           <Form.Field className="colorField">
             <Label>Color 1</Label>
@@ -56,7 +59,9 @@ export function Editor(props) {
                 setColor1(e.target.value);
               }}
             />
-            <Button onClick={() => setColor1(randomColor())}>Random</Button>
+            <Button onClick={() => setColor1(randomColor())}>
+              <Icon name="random" />
+            </Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 2</Label>
@@ -75,7 +80,9 @@ export function Editor(props) {
                 setColor2(e.target.value);
               }}
             />
-            <Button onClick={() => setColor2(randomColor())}>Random</Button>
+            <Button onClick={() => setColor2(randomColor())}>
+              <Icon name="random" />
+            </Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 3</Label>
@@ -94,7 +101,9 @@ export function Editor(props) {
                 setColor3(e.target.value);
               }}
             />
-            <Button onClick={() => setColor3(randomColor())}>Random</Button>
+            <Button onClick={() => setColor3(randomColor())}>
+              <Icon name="random" />
+            </Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 4</Label>
@@ -113,7 +122,9 @@ export function Editor(props) {
                 setColor4(e.target.value);
               }}
             />
-            <Button onClick={() => setColor4(randomColor())}>Random</Button>
+            <Button onClick={() => setColor4(randomColor())}>
+              <Icon name="random" />
+            </Button>
           </Form.Field>
           <Form.Field className="colorField">
             <Label>Color 5</Label>
@@ -132,7 +143,9 @@ export function Editor(props) {
                 setColor5(e.target.value);
               }}
             />
-            <Button onClick={() => setColor5(randomColor())}>Random</Button>
+            <Button onClick={() => setColor5(randomColor())}>
+              <Icon name="random" />
+            </Button>
           </Form.Field>
         </div>
 
@@ -162,5 +175,25 @@ export function Editor(props) {
     let g = Math.round(Math.random() * 255);
     let b = Math.round(Math.random() * 255);
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  }
+  async function titleGen() {
+    const nouns = ["Strawberry", "Apple", "Raspberry"];
+
+    const nounAPI = "https://api.datamuse.com/words?max=100&rel_jjb=";
+    const adjAPI = "https://api.datamuse.com/words?max=100&rel_jja=";
+
+    let rawData = await fetch(nounAPI + nouns[Math.floor(Math.random() * nouns.length)]);
+    let jsonData = await rawData.json();
+
+    let adjective = jsonData[Math.floor(Math.random() * jsonData.length)];
+
+    console.log(adjective);
+
+    let newRawData = await fetch(adjAPI + adjective.word);
+    let newJsonData = await newRawData.json();
+
+    let noun = newJsonData[Math.floor(Math.random() * newJsonData.length)];
+
+    setName(adjective.word + " " + noun.word);
   }
 }
