@@ -177,10 +177,10 @@ export function Editor(props) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   }
   async function titleGen() {
-    const nouns = ["Strawberry", "Apple", "Raspberry"];
+    const nouns = ["Strawberry", "Apple", "Raspberry", "Tree", "Flower", "Rose", "Grass", "Sky", "Cloud"];
 
     const nounAPI = "https://api.datamuse.com/words?max=100&rel_jjb=";
-    const adjAPI = "https://api.datamuse.com/words?max=100&rel_jja=";
+    const adjAPI = "https://api.datamuse.com/words?max=1&rel_jja=";
 
     let rawData = await fetch(nounAPI + nouns[Math.floor(Math.random() * nouns.length)]);
     let jsonData = await rawData.json();

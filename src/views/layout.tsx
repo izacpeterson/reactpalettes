@@ -27,9 +27,6 @@ function Layout() {
           <MenuItem as={Link} to="/Account">
             My Account
           </MenuItem>
-          <MenuItem as={Link} to="/Access">
-            Sign In
-          </MenuItem>
         </Menu>
 
         <Outlet />
